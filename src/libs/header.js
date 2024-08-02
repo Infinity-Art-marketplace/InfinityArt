@@ -1,14 +1,13 @@
 import React from "react";
-import ConnectButton from "../components/wallet";
 
-const Header = () => {
+const header = () => {
     return (
         <header>
-            <div className="header">
-                <ConnectButton />
-            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
         </header>
     )
 }
 
-export default Header;
+export default header;

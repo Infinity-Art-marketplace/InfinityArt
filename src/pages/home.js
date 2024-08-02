@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../libs/header';
+import HeaderApp from '../libs/headerApp';
 
 function Home() {
   return (
     <div>
-      <Header />
+      <HeaderApp />
     </div>
   );
 }

@@ -1,12 +1,17 @@
 import React from 'react';
-import HeaderApp from '../libs/headerApp'; // Verifique se o caminho está correto
-import '../App.css'; // Certifique-se de que o Tailwind CSS está configurado corretamente
+import Header from '../libs/header';
+import '../App.css';
+import NftCard from '../components/nftCard';
 
 function Home() {
+  const nftCards = Array.from({ length: 4 }, (_, index) => <NftCard key={index} />);
+
   return (
-    <div>
-      <HeaderApp />
-      <h1 className="text-4xl">Testando uma parada aqui</h1>
+    <div className='flex flex-col h-screen'>
+      <Header />
+      <div className='flex flex-wrap justify-center m-4'>
+        {nftCards}
+      </div>
     </div>
   );
 }

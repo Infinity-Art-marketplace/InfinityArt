@@ -1,13 +1,17 @@
 import React from "react";
+import ConnectButton from "../components/wallet";
 
-const header = () => {
+const Header = () => {
     return (
-        <header>
-            <ul>
-                <li><a href="/">Home</a></li>
-            </ul>
+        <header className="m-2 p-2 box-border">
+            <div>
+                <ul className="flex justify-between">
+                    <li><a href="/">Home(nao existe um home é só placebo)</a></li>
+                    <li><ConnectButton /></li>
+                </ul>
+            </div>
         </header>
-    )
+    );
 }
 
-export default header;
+export default Header;

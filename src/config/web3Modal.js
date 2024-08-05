@@ -1,4 +1,3 @@
-// src/config/web3ModalConfig.js
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 
 // 1. Your WalletConnect Cloud project ID from .env
@@ -11,6 +10,14 @@ const mainnet = {
   currency: 'ETH',
   explorerUrl: 'https://etherscan.io',
   rpcUrl: 'https://cloudflare-eth.com'
+};
+
+const bscMainnet = {
+  chainId: 56,
+  name: 'Binance Smart Chain',
+  currency: 'BNB',
+  explorerUrl: 'https://bscscan.com',
+  rpcUrl: 'https://bsc-dataseed.binance.org/'
 };
 
 // 3. Create a metadata object
@@ -34,7 +41,7 @@ const ethersConfig = defaultConfig({
 // 5. Create a Web3Modal instance
 export const initializeWeb3Modal = () => createWeb3Modal({
   ethersConfig,
-  chains: [mainnet],
+  chains: [mainnet, bscMainnet],
   projectId,
   enableAnalytics: true
 });

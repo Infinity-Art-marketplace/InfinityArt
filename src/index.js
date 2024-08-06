@@ -4,11 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initializeWeb3Modal } from './config/web3Modal';
-import Amplify from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import awsConfig from './aws-exports';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 // Initialize Web3Modal
 initializeWeb3Modal();

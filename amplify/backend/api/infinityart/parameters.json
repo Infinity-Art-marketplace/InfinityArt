@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "infinityart",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authinfinityart43052831",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

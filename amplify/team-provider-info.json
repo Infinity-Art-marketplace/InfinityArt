@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-infinityart-dev-2b74d-authRole",
+      "UnauthRoleArn": "arn:aws:iam::851725345930:role/amplify-infinityart-dev-2b74d-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::851725345930:role/amplify-infinityart-dev-2b74d-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-infinityart-dev-2b74d-deployment",
+      "UnauthRoleName": "amplify-infinityart-dev-2b74d-unauthRole",
+      "StackName": "amplify-infinityart-dev-2b74d",
+      "StackId": "arn:aws:cloudformation:us-east-1:851725345930:stack/amplify-infinityart-dev-2b74d/3a5ae950-536a-11ef-a819-0e6c453c2bc1",
+      "AmplifyAppId": "d10tdn0dz3k3h"
+    },
+    "categories": {
+      "auth": {
+        "infinityart43052831": {}
+      },
+      "api": {
+        "infinityart": {}
+      }
+    }
+  }
+}

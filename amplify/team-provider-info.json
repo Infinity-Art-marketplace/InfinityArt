@@ -19,5 +19,23 @@
         "infinityart": {}
       }
     }
+  },
+  "xdev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-infinityart-xdev-0362a-authRole",
+      "UnauthRoleArn": "arn:aws:iam::851725345930:role/amplify-infinityart-xdev-0362a-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::851725345930:role/amplify-infinityart-xdev-0362a-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-infinityart-xdev-0362a-deployment",
+      "UnauthRoleName": "amplify-infinityart-xdev-0362a-unauthRole",
+      "StackName": "amplify-infinityart-xdev-0362a",
+      "StackId": "arn:aws:cloudformation:us-east-1:851725345930:stack/amplify-infinityart-xdev-0362a/ad0e0760-53f7-11ef-adb6-1278920d60a1",
+      "AmplifyAppId": "d10tdn0dz3k3h"
+    },
+    "categories": {
+      "auth": {
+        "infinityart43052831": {}
+      }
+    }
   }
 }

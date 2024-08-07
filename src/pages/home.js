@@ -18,7 +18,7 @@ function Home() {
   };
 
   return (
-    <div className='flex flex-col h-screen bg-gradient-to-b from-white to-gray-300'>
+    <div className='flex flex-col bg-gradient-to-b from-white to-purple-200'>
       <Header />
       <section className='flex flex-col'>
         <div className='flex justify-center items-center text-4xl'>

@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initializeWeb3Modal } from './config/web3Modal';
 import { Amplify } from 'aws-amplify';
-import awsConfig from './amplifyconfiguration.json'
+import awsConfig from './aws-exports';
 
 // Initialize Web3Modal
 initializeWeb3Modal();

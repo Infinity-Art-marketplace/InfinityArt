@@ -16,19 +16,25 @@ const ConnectButton = () => {
   useEffect(() => {
     const submitUser = async () => {
       try {
+        console.log("Submitting user with account:", account);
         const result = await client.graphql({
           query: createUser,
           variables: { account, username: null, image: null }
         });
+        console.log("User creation result:", result);
         setUser(result.data.createUser);
       } catch (error) {
+        console.error("Error submitting user:", error);
         setError(error);
       }
     };
 
     if (isConnected && address) {
+      console.log("Address is set to:", address);
       setAccount(address);
       submitUser();
+    } else {
+      console.log("Address is not available or user is not connected.");
     }
   }, [isConnected, address, account, client]);
 

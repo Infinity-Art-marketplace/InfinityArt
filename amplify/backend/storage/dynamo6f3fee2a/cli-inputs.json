@@ -1,6 +1,6 @@
 {
-  "resourceName": "dynamo9bf5c6b9",
-  "tableName": "dynamo9bf5c6b9",
+  "resourceName": "dynamo6f3fee2a",
+  "tableName": "dynamo6f3fee2a",
   "partitionKey": {
     "fieldName": "Users",
     "fieldType": "string"

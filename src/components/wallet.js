@@ -1,33 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
-import { generateClient } from 'aws-amplify/api';
-import { createUser } from '../graphql/mutations';
+import { post } from 'aws-amplify/api';
 
 const ConnectButton = () => {
   const { open } = useWeb3Modal();
   const { address, isConnected } = useWeb3ModalAccount();
+  const [error, setError] = React.useState(null);
 
-  const [account, setAccount] = useState('');
-  const [error, setError] = useState(null);
-
-  const client = generateClient();
-
-  useEffect(() => {
-    if (isConnected && address) {
-      setAccount(address);
-      submitUser();
-    }
-  }, [isConnected, address]);
-
-  async function submitUser() {
+  async function createItem() {
     try {
-      await client.graphql({
-        query: createUser,
-        variables: { input: { account, username: null, image: null } },
+      const newItem = { name: 'New item', message: 'New message!' };
+      const response = await post('api0c0b9520', '/items', {
+        body: newItem
       });
-    } catch (error) {
-      console.error('Error submitting user:', error);
-      setError(error);
+      console.log('POST call succeeded: ', response);
+    } catch (e) {
+      console.log('POST call failed: ', JSON.parse(e.response.body));
     }
   }
 
@@ -35,12 +23,18 @@ const ConnectButton = () => {
     <div className="space-x-4">
       {isConnected ? (
         <>
-          <p>{address.slice(0, 7) + '...'}</p>
+          <p>{address ? address.slice(0, 7) + '...' : 'Loading...'}</p>
           <button
             onClick={() => open({ view: 'Networks' })}
             className="bg-gradient-to-r from-blue-500 to-pink-500 text-white py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105"
           >
             Switch Chain
+          </button>
+          <button
+            onClick={createItem}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105"
+          >
+            Create Item
           </button>
         </>
       ) : (

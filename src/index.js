@@ -4,14 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initializeWeb3Modal } from './config/web3Modal';
-import { Amplify } from 'aws-amplify';
-import awsConfig from './aws-exports';
 
 // Initialize Web3Modal
 initializeWeb3Modal();
-
-// Configure AWS Amplify
-Amplify.configure(awsConfig);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

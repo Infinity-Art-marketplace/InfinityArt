@@ -14,14 +14,15 @@
     "express": "^4.19.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "generate-env": "node generateEnv.js",
-  "start": "npm run generate-env && react-scripts start",
-  "build": "npm run generate-env && react-scripts build",
+    "start": "npm run generate-env && react-scripts start",
+    "build": "npm run generate-env && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

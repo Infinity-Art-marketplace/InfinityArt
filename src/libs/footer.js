@@ -16,7 +16,7 @@ const Footer = () => {
         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-black hover:text-gray-700">
           <FaTwitter size={24} />
         </a>
-        <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="text-black hover:text-gray-700">
+        <a href="https://discord.gg/CUrmUcgpTg" target="_blank" rel="noopener noreferrer" className="text-black hover:text-gray-700">
           <FaDiscord size={24} />
         </a>
       </div>

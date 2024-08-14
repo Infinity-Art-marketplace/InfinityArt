@@ -24,7 +24,7 @@ const bscMainnet = {
 const metadata = {
   name: 'InfinityArt',
   description: 'AppKit Example',
-  url: 'https://web3modal.com', // origin must match your domain & subdomain
+  url: 'https://infinity-art-orcin.vercel.app/', // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/37784886']
 };
 
@@ -34,7 +34,7 @@ const ethersConfig = defaultConfig({
   enableEIP6963: true,
   enableInjected: true,
   enableCoinbase: true,
-  rpcUrl: '...', 
+  rpcUrl: 'https://cloudflare-eth.com', 
   defaultChainId: 1,
 });
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from '../libs/footer';
 import Header from '../libs/header';
 import '../App.css';
 import NftCard from '../components/nftCard';
@@ -40,6 +41,7 @@ function Home() {
           </button>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

@@ -8,7 +8,7 @@ const ConnectButton = () => {
 
   useEffect(() => {
     if (isConnected && address) {
-      // Atualiza o usuário na DynamoDB com address como ID, username e image como null
+      console.log('Updating user with address:', address); // Log para confirmar o address antes da chamada API
       updateUser(address, { username: null, image: null })
         .then(() => {
           console.log('User created/updated successfully with address:', address);
@@ -17,7 +17,7 @@ const ConnectButton = () => {
           console.error('Error creating/updating user:', error);
         });
     }
-  }, [isConnected, address]);
+  }, [isConnected, address]); // Garante que a chamada é feita sempre que address ou isConnected mudam
 
   return (
     <div className="space-x-4">

@@ -1,17 +1,12 @@
-// src/backend/api.js
-const dynamodb = require('./aws-config');
+const User = require('./dynamoose-config');
 
 const updateUser = async (address, userData) => {
-  const params = {
-    TableName: 'Users',
-    Item: {
-      id: address,
-      ...userData,
-    },
-  };
-
   try {
-    await dynamodb.put(params).promise();
+    const user = new User({
+      id: address,
+      ...userData
+    });
+    await user.save();
     console.log('User updated successfully');
   } catch (error) {
     console.error('Error updating user:', error);

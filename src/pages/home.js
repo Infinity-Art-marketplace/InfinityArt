@@ -1,45 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Footer from '../libs/footer';
 import Header from '../libs/header';
 import '../App.css';
+import NftCategoryList from '../libs/NftCategoryList';
 import NftCard from '../components/nftCard';
 
 function Home() {
-  const [isFirstSet, setIsFirstSet] = useState(true);
-
-  const firstSetOfNftCards = Array.from({ length: 4 }, (_, index) => <NftCard key={`first-${index}`} />);
-  const secondSetOfNftCards = Array.from({ length: 4 }, (_, index) => <NftCard key={`second-${index}`} />);
-
-  const showFirstSet = () => {
-    setIsFirstSet(true);
-  };
-
-  const showSecondSet = () => {
-    setIsFirstSet(false);
-  };
-
+  const nftCardsCategory1 = Array.from({ length: 35 }, (_, index) => <NftCard key={index} />);
+  const nftCardsCategory2 = Array.from({ length: 24 }, (_, index) => <NftCard key={index} />);
+  
   return (
     <div className='flex flex-col bg-gradient-to-b from-white to-purple-200'>
       <Header />
       <section className='flex flex-col'>
-        <div className='flex justify-center items-center text-4xl'>
-          <a>collection name</a>
-        </div>
-        <div className='flex flex-wrap justify-center m-4'>
-          <button
-            onClick={showFirstSet}
-            className='m-4 p-2 text-4xl text-black rounded transition-transform duration-200 ease-in-out hover:text-gray-500 hover:scale-105'
-          >
-            &lt;
-          </button>
-          {isFirstSet ? firstSetOfNftCards : secondSetOfNftCards}
-          <button
-            onClick={showSecondSet}
-            className='m-4 p-2 text-4xl text-black rounded transition-transform duration-200 ease-in-out hover:text-gray-500 hover:scale-105'
-          >
-            &gt;
-          </button>
-        </div>
+        <NftCategoryList categoryName="DEFI" nftCards={nftCardsCategory1} />
+        <NftCategoryList categoryName="games" nftCards={nftCardsCategory2} />
+        <NftCategoryList categoryName="art" nftCards={nftCardsCategory1} />
+        <NftCategoryList categoryName="DAOs" nftCards={nftCardsCategory2} />
       </section>
       <Footer />
     </div>
@@ -47,3 +24,4 @@ function Home() {
 }
 
 export default Home;
+

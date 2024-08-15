@@ -1,7 +1,9 @@
-import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 
-// 1. Your WalletConnect Cloud project ID from .env
+import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
+
+// 1. Your WalletConnect Cloud project ID
 const projectId = process.env.REACT_APP_WALLETCONNECT_PROJECT_ID;
+
 
 // 2. Set chains
 const mainnet = {
@@ -26,17 +28,20 @@ const metadata = {
   description: 'AppKit Example',
   url: 'https://infinity-art-orcin.vercel.app/', // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/37784886']
-};
+}
 
 // 4. Create Ethers config
 const ethersConfig = defaultConfig({
+  /*Required*/
   metadata,
-  enableEIP6963: true,
-  enableInjected: true,
-  enableCoinbase: true,
-  rpcUrl: 'https://cloudflare-eth.com', 
-  defaultChainId: 1,
-});
+
+  /*Optional*/
+  enableEIP6963: true, // true by default
+  enableInjected: true, // true by default
+  enableCoinbase: true, // true by default
+  rpcUrl: '...', // used for the Coinbase SDK
+  defaultChainId: 1, // used for the Coinbase SDK
+})
 
 // 5. Create a Web3Modal instance
 export const initializeWeb3Modal = () => createWeb3Modal({
@@ -44,4 +49,4 @@ export const initializeWeb3Modal = () => createWeb3Modal({
   chains: [mainnet, bscMainnet],
   projectId,
   enableAnalytics: true
-});
+})

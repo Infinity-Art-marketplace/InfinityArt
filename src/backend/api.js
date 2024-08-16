@@ -18,37 +18,9 @@ const updateUser = async (Address, userData) => {
     const existingItem = await dynamodb.get(paramsGet).promise();
 
     if (existingItem.Item) {
-      // Se o item existir, atualiza
-      let updateExpression = 'set';
-      let expressionAttributeValues = {};
-
-      if (userData.username) {
-        updateExpression += ' username = :u';
-        expressionAttributeValues[':u'] = userData.username;
-      }
-
-      if (userData.image) {
-        updateExpression += (Object.keys(expressionAttributeValues).length > 0 ? ', ' : ' ') + 'image = :i';
-        expressionAttributeValues[':i'] = userData.image;
-      }
-
-      if (Object.keys(expressionAttributeValues).length === 0) {
-        throw new Error('No valid attributes to update');
-      }
-
-      const paramsUpdate = {
-        TableName: process.env.REACT_APP_DYNAMODB_TABLE_NAME,
-        Key: {
-          Address: Address, // "A" maiúsculo aqui também
-        },
-        UpdateExpression: updateExpression,
-        ExpressionAttributeValues: expressionAttributeValues,
-        ReturnValues: 'UPDATED_NEW'
-      };
-
-      const data = await dynamodb.update(paramsUpdate).promise();
-      console.log('User updated successfully:', data);
-      return data;
+      // Se o item existir, apenas retorna os dados do usuário
+      console.log('User exists:', existingItem.Item);
+      return existingItem.Item;
     } else {
       // Se o item não existir, cria um novo
       const paramsPut = {

@@ -7,6 +7,7 @@ const Header = () => {
             <div>
                 <ul className="flex justify-between">
                     <li><a href="/">Home(nao existe um home é só placebo)</a></li>
+                    <li><a href="/user-profile">user profile</a></li>
                     <li><ConnectButton /></li>
                 </ul>
             </div>

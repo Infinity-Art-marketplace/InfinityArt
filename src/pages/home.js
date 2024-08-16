@@ -1,6 +1,4 @@
 import React from 'react';
-import Footer from '../libs/footer';
-import Header from '../libs/header';
 import '../App.css';
 import NftCategoryList from '../libs/NftCategoryList';
 import NftCard from '../components/nftCard';
@@ -11,7 +9,6 @@ function Home() {
   
   return (
     <div className='flex flex-col bg-gradient-to-b from-white to-purple-200'>
-      <Header />
       <Banner />
       <section className='flex flex-col'>
         <NftCategoryList categoryName="DEFI" nftCards={nftCardsCategory1} />
@@ -19,7 +16,6 @@ function Home() {
         <NftCategoryList categoryName="art" nftCards={nftCardsCategory1} />
         <NftCategoryList categoryName="DAOs" nftCards={nftCardsCategory2} />
       </section>
-      <Footer />
     </div>
   );
 }

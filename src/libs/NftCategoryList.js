@@ -19,7 +19,7 @@ const NftCategoryList = ({ categoryName, nftCards }) => {
       <div className='relative flex items-center'>
         <button
           onClick={() => handleScroll('left')}
-          className='p-2 text-4xl text-black rounded transition-transform duration-200 ease-in-out hover:text-gray-500 hover:scale-105'
+          className='absolute left-0 h-full w-12 text-4xl text-black bg-white opacity-0 hover:opacity-70 hover:rounded-full transition-all duration-300 ease-in-out hover:text-gray-500'
         >
           &lt;
         </button>
@@ -34,7 +34,7 @@ const NftCategoryList = ({ categoryName, nftCards }) => {
         </div>
         <button
           onClick={() => handleScroll('right')}
-          className='p-2 text-4xl text-black rounded transition-transform duration-200 ease-in-out hover:text-gray-500 hover:scale-105'
+          className='absolute right-0 h-full w-12 text-4xl text-black bg-white opacity-0 hover:opacity-70 hover:rounded-full transition-all duration-300 ease-in-out hover:text-gray-500'
         >
           &gt;
         </button>

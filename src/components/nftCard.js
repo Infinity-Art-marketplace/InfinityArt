@@ -3,7 +3,7 @@ import NFTimage from './cropped_image_512x512.png';
 
 const NftCard = () => {
     return (
-        <div className="max-w-sm rounded shadow-lg m-4 transition-transform hover:scale-105">
+        <div className="max-w-sm rounded shadow-lg m-4 transition-transform hover:scale-105 bg-white">
             <div className="flex justify-center items-center h-232">
                 <img className="w-232 object-cover" src={NFTimage} alt="NFT Image" />
             </div>
@@ -18,3 +18,4 @@ const NftCard = () => {
 }
 
 export default NftCard;
+

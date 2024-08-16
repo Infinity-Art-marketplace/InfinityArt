@@ -1,7 +1,5 @@
 const express = require('express');
-const { updateUser } = require('./src/backend/api'); // Atualizado para usar o caminho relativo correto
-require('./src/backend/aws-config'); // Configurações da AWS
-require('./src/backend/dynamoose-config'); // Configurações do Dynamoose
+const { updateUser } = require('./src/backend/api'); // Caminho atualizado conforme estrutura de diretórios
 
 const app = express();
 const port = process.env.PORT || 5000;

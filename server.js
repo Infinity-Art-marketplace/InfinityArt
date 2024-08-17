@@ -1,5 +1,5 @@
 const express = require('express');
-const { updateUser } = require('./src/backend/api'); // Caminho atualizado conforme estrutura de diretórios
+const { updateUser } = require('./src/backend/updatewallet'); // Caminho atualizado conforme estrutura de diretórios
 
 const app = express();
 const port = process.env.PORT || 5000;

@@ -1,14 +1,40 @@
-import React from 'react';
-import { useWeb3Modal , useWeb3ModalAccount } from '@web3modal/ethers/react';
-import { useUser } from '../context/UserContext'; // Assumindo que UserContext está no
+import React, { useState, useEffect } from 'react';
+import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { createUser } from "../backend/createUser";
+import imageuser from "../components/guest.jpg";
 
 const ConnectButton = () => {
   const { open } = useWeb3Modal();
   const { address, isConnected } = useWeb3ModalAccount();
-  const { username, userImage } = useUser(); // Use dados do contexto
+  const [user, setUser] = useState({ username: '', userImage: '' });
 
-  // Função para truncar o nome de usuário
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (isConnected && address) {
+        // Chama a função real createUser passando os dados
+        const userData = await createUser(address, {
+          username: 'Default Username',
+          image: imageuser,
+          banner: '',
+          description: 'Role or short bio',
+          createdAt: new Date().toISOString(),
+        });
+
+        // Atualiza o estado local com os dados retornados
+        setUser({
+          username: userData.username,
+          userImage: userData.image,
+        });
+      }
+    };
+
+    fetchUser();
+  }, [isConnected, address]);
+
   const truncateUsername = (name) => {
+    if (!name || name.trim() === '') {
+      name = 'Default Username';
+    }
     if (name.length > 17) {
       return name.slice(0, 17) + '...';
     }
@@ -21,12 +47,12 @@ const ConnectButton = () => {
         <>
           <div className="flex items-center space-x-4 flex-grow">
             <img
-              src={userImage} // Usa a imagem do usuário do contexto
+              src={user.userImage}
               alt="User Image"
               className="w-10 h-10 rounded-full"
             />
             <div className="flex flex-col">
-              <p className="text-lg font-bold mr-4">{truncateUsername(username)}</p>
+              <p className="text-lg font-bold mr-4">{truncateUsername(user.username)}</p>
               <p className="text-xs text-gray-500">
                 {address ? `${address.slice(0, 7)}...` : 'Loading...'}
               </p>
@@ -52,4 +78,3 @@ const ConnectButton = () => {
 };
 
 export default ConnectButton;
-

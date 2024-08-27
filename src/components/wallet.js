@@ -2,34 +2,47 @@ import React, { useState, useEffect } from 'react';
 import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { createUser } from "../backend/createUser";
 import imageuser from "../components/guest.jpg";
+import { useUser } from '../context/UserContext';
 
 const ConnectButton = () => {
   const { open } = useWeb3Modal();
   const { address, isConnected } = useWeb3ModalAccount();
+  const { userData, setUserData } = useUser(); // Acessa e manipula os dados do usuário a partir do contexto
   const [user, setUser] = useState({ username: '', userImage: '' });
 
   useEffect(() => {
     const fetchUser = async () => {
       if (isConnected && address) {
-        // Chama a função real createUser passando os dados
-        const userData = await createUser(address, {
-          username: 'Default Username',
-          image: imageuser,
-          banner: '',
-          description: 'Role or short bio',
-          createdAt: new Date().toISOString(),
-        });
+        if (!userData || !userData.username) {
+          // Se o usuário não existir no contexto, cria um novo usuário
+          const newUser = await createUser(address, {
+            username: 'Default Username',
+            image: imageuser,
+            banner: '',
+            description: 'Role or short bio',
+            createdAt: new Date().toISOString(),
+          });
 
-        // Atualiza o estado local com os dados retornados
-        setUser({
-          username: userData.username,
-          userImage: userData.image,
-        });
+          // Atualiza o contexto com os dados do novo usuário
+          setUserData(newUser);
+
+          // Atualiza o estado local
+          setUser({
+            username: newUser.username,
+            userImage: newUser.image,
+          });
+        } else {
+          // Se o usuário já existir no contexto, utiliza esses dados
+          setUser({
+            username: userData.username,
+            userImage: userData.userImage || imageuser, // Usar uma imagem padrão se estiver ausente
+          });
+        }
       }
     };
 
     fetchUser();
-  }, [isConnected, address]);
+  }, [isConnected, address, userData, setUserData]);
 
   const truncateUsername = (name) => {
     if (!name || name.trim() === '') {
@@ -47,7 +60,7 @@ const ConnectButton = () => {
         <>
           <div className="flex items-center space-x-4 flex-grow">
             <img
-              src={user.userImage}
+              src={user.userImage || imageuser} // Fallback para uma imagem padrão
               alt="User Image"
               className="w-10 h-10 rounded-full"
             />
@@ -78,3 +91,4 @@ const ConnectButton = () => {
 };
 
 export default ConnectButton;
+

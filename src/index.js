@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initializeWeb3Modal } from './config/web3Modal';
+
 // Initialize Web3Modal
 initializeWeb3Modal();
 

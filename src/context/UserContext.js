@@ -11,7 +11,8 @@ const UserContext = createContext({
     userBanner: imageuser,
     userDescription: 'Role or short bio',
     createdAt: new Date().toISOString(),
-  }
+  },
+  setUserData: () => {}, // Adicionando setUserData ao contexto
 });
 
 export const UserProvider = ({ children }) => {
@@ -53,7 +54,7 @@ export const UserProvider = ({ children }) => {
   }, [isConnected, address]);
 
   return (
-    <UserContext.Provider value={{ userData }}>
+    <UserContext.Provider value={{ userData, setUserData }}>
       {children}
     </UserContext.Provider>
   );

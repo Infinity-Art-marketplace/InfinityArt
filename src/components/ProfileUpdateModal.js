@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MyDropzone from './myDropzone';
 import { updateUser } from '../backend/updateUser';
 import { useUser } from '../context/UserContext';
@@ -6,11 +6,21 @@ import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 
 const ProfileUpdateModal = ({ isOpen, onClose }) => {
   const { address, isConnected } = useWeb3ModalAccount();
-  const { setUserData } = useUser(); 
+  const { userData, setUserData } = useUser(); // Obtém os dados do usuário do contexto
   const [username, setUsername] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [banner, setBanner] = useState('');
+
+  // UseEffect para preencher os campos com os dados atuais do usuário quando o modal é aberto
+  useEffect(() => {
+    if (isOpen && userData) {
+      setUsername(userData.username || '');
+      setDescription(userData.userDescription || '');
+      setImage(userData.userImage || '');
+      setBanner(userData.userBanner || '');
+    }
+  }, [isOpen, userData]);
 
   // Função para converter o arquivo em Base64
   const convertToBase64 = (file) => {

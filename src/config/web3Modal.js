@@ -1,25 +1,23 @@
-
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
 
 // 1. Your WalletConnect Cloud project ID
 const projectId = process.env.REACT_APP_WALLETCONNECT_PROJECT_ID;
 
-
 // 2. Set chains
-const mainnet = {
-  chainId: 1,
-  name: 'Ethereum',
-  currency: 'ETH',
-  explorerUrl: 'https://etherscan.io',
-  rpcUrl: 'https://cloudflare-eth.com'
-};
-
 const bscMainnet = {
   chainId: 56,
   name: 'Binance Smart Chain',
   currency: 'BNB',
   explorerUrl: 'https://bscscan.com',
   rpcUrl: 'https://bsc-dataseed.binance.org/'
+};
+
+const arbitrumSepolia = {
+  chainId: 656476,
+  name: 'EDU Chain',
+  currency: 'ETH',
+  explorerUrl: 'https://opencampus-codex.blockscout.com',
+  rpcUrl: 'https://rpc.open-campus-codex.gelato.digital'
 };
 
 // 3. Create a metadata object
@@ -39,14 +37,15 @@ const ethersConfig = defaultConfig({
   enableEIP6963: true, // true by default
   enableInjected: true, // true by default
   enableCoinbase: true, // true by default
-  rpcUrl: '...', // used for the Coinbase SDK
-  defaultChainId: 1, // used for the Coinbase SDK
+  rpcUrl: 'https://rpc.open-campus-codex.gelato.digital', // Arbitrum Sepolia RPC URL
+  defaultChainId: 656476, // Arbitrum Sepolia Chain ID
 })
 
 // 5. Create a Web3Modal instance
 export const initializeWeb3Modal = () => createWeb3Modal({
   ethersConfig,
-  chains: [mainnet, bscMainnet],
+  chains: [bscMainnet, arbitrumSepolia],
   projectId,
   enableAnalytics: true
 })
+

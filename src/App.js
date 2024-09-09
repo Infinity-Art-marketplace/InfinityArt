@@ -5,6 +5,7 @@ import Header from './libs/header';
 import Footer from './libs/footer';
 import Home from './pages/home';
 import UserProfile from './pages/userProfile';
+import CreateNFTs from './pages/createNFTs';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/user-profile/:address" element={<UserProfile />} />
+          <Route path="/create-nfts" element={<CreateNFTs />} />
         </Routes>
         <Footer />
       </Router>

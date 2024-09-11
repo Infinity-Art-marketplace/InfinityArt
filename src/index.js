@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initializeWeb3Modal } from './config/web3Modal';
+import { UserProvider } from './context/UserContext'; // Importa o UserProvider
 
 // Initialize Web3Modal
 initializeWeb3Modal();
@@ -11,7 +12,9 @@ initializeWeb3Modal();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </React.StrictMode>
 );
 

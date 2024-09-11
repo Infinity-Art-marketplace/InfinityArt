@@ -3,19 +3,21 @@ import { searchUsers } from '../backend/SearchUser'; // Certifique-se de ajustar
 import { FiSearch } from 'react-icons/fi'; // Ícone de busca
 import { IoMdCloseCircle } from 'react-icons/io'; // Ícone de fechar
 import { FaUser } from 'react-icons/fa'; // Ícone de usuário
+import { useUser } from '../context/UserContext'; // Importa o contexto para setar o address
 
 const SearchBar = () => {
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState('');
   const [inputPosition, setInputPosition] = useState(null); // Para capturar a posição do input
+  const { setAddress } = useUser(); // Pega a função setAddress do contexto
 
   // Função para buscar sugestões
   useEffect(() => {
     const loadSuggestions = async () => {
       if (input.length > 0) {
         try {
-          const results = await searchUsers(input);
+          const results = await searchUsers(input);  // Busca os usuários
           setSuggestions(results || []);
         } catch (err) {
           setError(`Erro ao buscar sugestões: ${err.message}`);
@@ -37,6 +39,11 @@ const SearchBar = () => {
       left: rect.left + window.scrollX,
       width: rect.width,
     });
+  };
+
+  // Função para lidar com o clique na sugestão
+  const handleSuggestionClick = (address) => {
+    setAddress(address); // Atualiza o contexto com o address clicado
   };
 
   return (
@@ -71,7 +78,11 @@ const SearchBar = () => {
             }}
           >
             {suggestions.map((item, index) => (
-              <li key={index} className="p-3 hover:bg-blue-500 hover:text-white cursor-pointer">
+              <li
+                key={index}
+                className="p-3 hover:bg-blue-500 hover:text-white cursor-pointer"
+                onClick={() => handleSuggestionClick(item.Address)} // Passa o address clicado para o contexto
+              >
                 <a
                   href={`/user-profile/${item.Address}`}
                   className="flex items-center w-full"

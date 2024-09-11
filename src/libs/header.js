@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { useUser } from '../context/UserContext';  // Importa o contexto
 import ConnectButton from "../components/wallet";
 import SearchBar from "../components/SearchBar";
 
@@ -10,6 +11,16 @@ import { GiCube } from "react-icons/gi";
 const Header = () => {
   const { address, isConnected } = useWeb3ModalAccount();
   const [showSearchBar, setShowSearchBar] = useState(false); // Estado para controlar a visibilidade da SearchBar
+  const { setAddress } = useUser();  // Usa o contexto para definir o address
+
+  const handleProfileClick = (e) => {
+    if (!isConnected) {
+      e.preventDefault();  // Previne a navegação se não estiver conectado
+      alert("Você ainda não está conectado.");
+    } else {
+      setAddress(address);  // Atualiza o contexto com o address ao clicar no link
+    }
+  };
 
   return (
     <header className="m-2 p-4 box-border"> {/* Removido fundo e sombra */}
@@ -29,12 +40,7 @@ const Header = () => {
             <a 
               href={isConnected ? `/user-profile/${address}` : "#"}
               className={`flex items-center justify-center w-10 h-10 rounded-full ${isConnected ? 'bg-purple-200/50' : 'bg-red-500 cursor-not-allowed'}`}
-              onClick={(e) => {
-                if (!isConnected) {
-                  e.preventDefault();
-                  alert("Você ainda não está conectado.");
-                }
-              }}
+              onClick={handleProfileClick}  // Define o comportamento de clique
             >
               <FaUser className="text-black text-2xl" />
             </a>
@@ -91,4 +97,3 @@ const Header = () => {
 }
 
 export default Header;
-

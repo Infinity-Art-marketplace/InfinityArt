@@ -1,48 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { createUser } from "../backend/createUser";
+import { getUser } from '../backend/getUser';  // Importa a função para buscar o usuário
 import imageuser from "../components/guest.jpg";
-import { useUser } from '../context/UserContext';
 
 const ConnectButton = () => {
   const { open } = useWeb3Modal();
   const { address, isConnected } = useWeb3ModalAccount();
-  const { userData, setUserData } = useUser(); // Acessa e manipula os dados do usuário a partir do contexto
   const [user, setUser] = useState({ username: '', userImage: '' });
 
   useEffect(() => {
     const fetchUser = async () => {
       if (isConnected && address) {
-        if (!userData || !userData.username) {
-          // Se o usuário não existir no contexto, cria um novo usuário
-          const newUser = await createUser(address, {
-            username: 'Default Username',
-            image: imageuser,
-            banner: '',
-            description: 'Role or short bio',
-            createdAt: new Date().toISOString(),
-          });
+        try {
+          // Tenta buscar o usuário com base no address
+          const existingUser = await getUser(address);
 
-          // Atualiza o contexto com os dados do novo usuário
-          setUserData(newUser);
+          if (existingUser) {
+            // Se o usuário for encontrado, atualiza o estado com os dados do DynamoDB
+            setUser({
+              username: existingUser.username || 'Default Username',
+              userImage: existingUser.image || imageuser, // Usar uma imagem padrão se estiver ausente
+            });
+          } else {
+            // Se o usuário não for encontrado, cria um novo usuário
+            const newUser = await createUser(address, {
+              username: 'Default Username',
+              image: imageuser,
+              banner: '',
+              description: 'Role or short bio',
+              createdAt: new Date().toISOString(),
+            });
 
-          // Atualiza o estado local
-          setUser({
-            username: newUser.username,
-            userImage: newUser.image,
-          });
-        } else {
-          // Se o usuário já existir no contexto, utiliza esses dados
-          setUser({
-            username: userData.username,
-            userImage: userData.userImage || imageuser, // Usar uma imagem padrão se estiver ausente
-          });
+            // Atualiza o estado local com os dados do novo usuário
+            setUser({
+              username: newUser.username,
+              userImage: newUser.image,
+            });
+          }
+        } catch (error) {
+          console.error('Erro ao buscar ou criar o usuário:', error);
         }
       }
     };
 
     fetchUser();
-  }, [isConnected, address, userData, setUserData]);
+  }, [isConnected, address]);
 
   const truncateUsername = (name) => {
     if (!name || name.trim() === '') {

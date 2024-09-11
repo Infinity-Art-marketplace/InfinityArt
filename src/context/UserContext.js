@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useWeb3ModalAccount } from '@web3modal/ethers/react';
-import { getUser } from "../backend/getUser";
+import { getUser } from "../backend/getUser";  
 import imageuser from "../components/cropped_image_512x512.png";
 import imageguest from "../components/guest.jpg";
 
@@ -12,12 +11,11 @@ const UserContext = createContext({
     userDescription: 'Role or short bio',
     createdAt: new Date().toISOString(),
   },
-  setUserData: () => {}, // Adicionando setUserData ao contexto
+  setUserData: () => {},
+  setAddress: () => {}
 });
 
 export const UserProvider = ({ children }) => {
-  const { address, isConnected } = useWeb3ModalAccount();
-  
   const [userData, setUserData] = useState({
     username: 'Default Username',
     userImage: imageguest,
@@ -25,12 +23,19 @@ export const UserProvider = ({ children }) => {
     userDescription: 'Role or short bio',
     createdAt: new Date().toISOString(),
   });
+  
+  const [address, setAddress] = useState(() => {
+    // Recupera o endereço da localStorage se disponível
+    return localStorage.getItem('userAddress') || null;
+  });
 
-  const fetchUserData = async () => {
-    if (!address) return;
+  const fetchUserData = async (address) => {
+    if (!address) return;  
 
+    console.log('Fetching user data for address:', address); 
     try {
-      const user = await getUser(address);
+      const user = await getUser(address);  
+      console.log('User data fetched:', user); 
       if (user) {
         setUserData({
           username: user.username?.trim() || 'Default Username',
@@ -40,7 +45,7 @@ export const UserProvider = ({ children }) => {
           createdAt: user.createdAt || new Date().toISOString(),
         });
       } else {
-        console.log('No user found. Returning default user.');
+        console.log('No user found for this address.');
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -48,13 +53,20 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (isConnected && address) {
-      fetchUserData();
+    console.log('Address in context:', address); 
+    if (address) {
+      fetchUserData(address);  
     }
-  }, [isConnected, address]);
+  }, [address]);
+
+  // Atualiza o endereço e salva na localStorage
+  const handleSetAddress = (newAddress) => {
+    setAddress(newAddress);
+    localStorage.setItem('userAddress', newAddress);
+  };
 
   return (
-    <UserContext.Provider value={{ userData, setUserData }}>
+    <UserContext.Provider value={{ userData, setUserData, setAddress: handleSetAddress }}>
       {children}
     </UserContext.Provider>
   );

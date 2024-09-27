@@ -89,7 +89,6 @@ const Header = () => {
         >
           <SearchBar />
         </div>
-
         <ConnectButton />
       </div>
     </header>
